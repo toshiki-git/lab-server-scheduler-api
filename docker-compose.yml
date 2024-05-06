@@ -24,6 +24,7 @@ services:
       POSTGRES_DB: "SchedulerDB"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./_scripts/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   pgweb:
     image: sosedoff/pgweb
