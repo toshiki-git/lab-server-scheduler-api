@@ -13,7 +13,18 @@ import (
 	"github.com/toshiki-git/lab-server-scheduler-api/repository"
 )
 
+func enableCORS(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
+
 func userHandler(repo *repository.UserRepository, w http.ResponseWriter, r *http.Request) {
+	enableCORS(&w)
+	if r.Method == "OPTIONS" {
+		return
+	}
+
 	switch r.Method {
 	case "POST":
 		createUser(repo, w, r)
