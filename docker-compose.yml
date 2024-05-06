@@ -1,10 +1,9 @@
 version: "3.7"
 
 services:
-  go-server:
+  api-server:
     build: ./
-    container_name: "go-server"
-    image: "go-server-app"
+    container_name: "api-server"
     ports:
       - "8080:8080"
     command: go run ./cmd/scheduler/main.go
