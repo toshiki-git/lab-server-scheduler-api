@@ -7,6 +7,12 @@ services:
     ports:
       - "8080:8080"
     command: go run ./cmd/scheduler/main.go
+    environment:
+      DB_HOST: postgres
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: SchedulerDB
+      DB_SSLMODE: disable
     tty: true
     stdin_open: true
     depends_on:
