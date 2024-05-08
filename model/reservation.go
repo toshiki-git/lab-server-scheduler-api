@@ -1,6 +1,6 @@
 package model
 
-type Scheduler struct {
+type Reservation struct {
 	ReservationId string `json:"reservation_id"`
 	UserId        string `json:"user_id"`
 	Title         string `json:"title"`
