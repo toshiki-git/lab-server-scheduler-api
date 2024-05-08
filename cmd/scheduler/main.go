@@ -12,10 +12,14 @@ import (
 
 func main() {
 	db := db.InitDB()
-	repo := repository.NewUserRepository(db)
+	userrRepo := repository.NewUserRepository(db)
+	reservationRepo := repository.NewReservationRepository(db)
 
 	http.HandleFunc("/users", func(w http.ResponseWriter, r *http.Request) {
-		handler.UserHandler(repo, w, r)
+		handler.UserHandler(userrRepo, w, r)
+	})
+	http.HandleFunc("/reservations", func(w http.ResponseWriter, r *http.Request) {
+		handler.ReservationHandler(reservationRepo, w, r)
 	})
 
 	log.Println("Server started on :8080")
