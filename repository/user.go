@@ -44,3 +44,9 @@ func (r *UserRepository) Delete(ctx context.Context, id string) error {
 	_, err := r.db.ExecContext(ctx, "DELETE FROM users WHERE user_id = $1", id)
 	return err
 }
+
+func (r *UserRepository) Exists(ctx context.Context, email string) (bool, error) {
+	var exists bool
+	err := r.db.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM users WHERE email=$1)", email).Scan(&exists)
+	return exists, err
+}

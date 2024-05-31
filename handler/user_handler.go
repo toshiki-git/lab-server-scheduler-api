@@ -36,6 +36,21 @@ func createUser(repo *repository.UserRepository, w http.ResponseWriter, r *http.
 	}
 
 	ctx := context.Background()
+
+	// ユーザーが既に存在するか確認
+	exists, err := repo.Exists(ctx, user.Email)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if exists {
+		// 既に存在する場合は何もせずに成功ステータスを返す
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	// ユーザーを作成
 	err = repo.Create(ctx, &user)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
